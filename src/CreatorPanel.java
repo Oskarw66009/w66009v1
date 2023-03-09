@@ -14,6 +14,7 @@ public class CreatorPanel extends JFrame {
     private JTextField discountField;
     private JButton addButton;
     private JButton deleteButton;
+    private JButton closeButton;
 
     public CreatorPanel() {
         // Inicjalizacja okna Creator Panel
@@ -22,26 +23,31 @@ public class CreatorPanel extends JFrame {
         this.setSize(800, 600);
 
         // Tworzenie formularza
-        JPanel formPanel = new JPanel(new GridLayout(9, 2));
-        JLabel titleLabel = new JLabel("Title:");
+        JPanel formPanel = new JPanel(new GridLayout(9, 3));
+        JLabel titleLabel = new JLabel("Tytuł:");
         titleField = new JTextField();
-        JLabel descriptionLabel = new JLabel("Description:");
+
+        JLabel descriptionLabel = new JLabel("Opis:");
         descriptionArea = new JTextArea();
         JScrollPane descriptionScrollPane = new JScrollPane(descriptionArea);
-        JLabel categoryLabel = new JLabel("Category:");
-        categoryCombo = new JComboBox<>(new String[]{"Console", "PC", "Multiplayer"});
+        JLabel categoryLabel = new JLabel("Kategoria:");
+        categoryCombo = new JComboBox<>(new String[]{"Konsola", "PC", "Multiplayer"});
         JLabel genreLabel = new JLabel("Genre:");
-        genreCombo = new JComboBox<>(new String[]{"Action", "Adventure", "Simulation"});
-        JLabel priceLabel = new JLabel("Price:");
+        genreCombo = new JComboBox<>(new String[]{"Akcja", "Przygoda", "Symulacja"});
+        JLabel priceLabel = new JLabel("Cena:");
         priceField = new JTextField();
-        JLabel discountLabel = new JLabel("Discount:");
+        JLabel discountLabel = new JLabel("Przecena:");
         discountField = new JTextField();
-        JLabel iconLabel = new JLabel("Icon:");
-        JLabel iconField = new JLabel("To be implemented");
-        addButton = new JButton("Add game");
+        JLabel iconLabel = new JLabel("Ikona:");
+        JLabel iconField = new JLabel("Soon...");
+        addButton = new JButton("Dodaj grę");
         addButton.addActionListener(e -> addGame());
-        deleteButton = new JButton("Delete game");
+        deleteButton = new JButton("Usuń grę");
         deleteButton.addActionListener(e -> deleteGame());
+        closeButton = new JButton("Zamknij panel");
+        closeButton.addActionListener(e -> this.dispose());
+
+
 
         // Dodawanie elementów formularza do panelu
         formPanel.add(titleLabel);
@@ -60,6 +66,12 @@ public class CreatorPanel extends JFrame {
         formPanel.add(iconField);
         formPanel.add(addButton);
         formPanel.add(deleteButton);
+        formPanel.add(new JLabel());
+        formPanel.add(closeButton);
+
+        // Wycentrowanie komponentów panelu
+        formPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        formPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         // Dodawanie panelu do okna
         this.add(formPanel);
@@ -86,9 +98,9 @@ public class CreatorPanel extends JFrame {
             stmt.setDouble(6, discount);
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(this, "Game added successfully");
+            JOptionPane.showMessageDialog(this, "Gra została pomyślnie dodana");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error adding game: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Błąd podczas dodawania gry: " + ex.getMessage());
         }
     }
 

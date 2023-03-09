@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class UserPanel extends JFrame {
@@ -11,6 +13,16 @@ public class UserPanel extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         JTable table = new JTable(getGameData(), new String[]{"Tytuł", "Opis", "Kategoria", "Cena", "Zniżka"});
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        JButton closeButton = new JButton("Zamknij panel");
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        panel.add(closeButton, BorderLayout.SOUTH);
+
         this.add(panel);
     }
 
